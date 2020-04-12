@@ -18,3 +18,8 @@ Route::get('/', function () {
 });
 
 Route::get('/user/{name}', 'UserDetailController@showUserDetail');
+Route::get('/profile', 
+    function () { 
+        return view('profile');
+    }
+);
