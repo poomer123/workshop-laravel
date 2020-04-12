@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Show your profile</h1>
-    <h2><?=$name?></h2>
-    <h2><?=$title?></h2>
+    <h2>{{$name}}</h2>
+    <h2>{{$title}}</h2>
 </body>
 </html>
