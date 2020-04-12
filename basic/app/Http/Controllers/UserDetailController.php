@@ -9,6 +9,6 @@ class UserDetailController extends Controller
     function showUserDetail() {
         return view('profile')
         ->with('name', 'poom')
-        ->with('title', 'poom profile');
+        ->with('nickname', 'poom');
     }
 }
