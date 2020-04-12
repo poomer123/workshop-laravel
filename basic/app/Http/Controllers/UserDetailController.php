@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 
 class UserDetailController extends Controller
 {
-    function showUserDetail($name) {
-        return '<h1>Name : ' . $name . '</h1>';
+    function showUserDetail() {
+        return view('profile')
+        ->with('name', 'poom')
+        ->with('title', 'poom profile');
     }
 }
