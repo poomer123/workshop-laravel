@@ -5,7 +5,7 @@
     <p>Comming soon..</p>
 @stop
 @section('footer')
-    <h3>Powered by poom</h3>
+    <h3>contact me</h3>
 @stop
 
 <p>show other content</p>

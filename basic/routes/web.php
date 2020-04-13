@@ -18,3 +18,7 @@ Route::get('/', function () {
 });
 
 Route::get('/profile', 'UserDetailController@showUserDetail');
+
+Route::get('/user/add', function () {
+    return view('form');
+});
