@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Customer;
+use App\Http\Resources\CustomerResource;
 
 class CustomerController extends Controller
 {
@@ -38,7 +39,8 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        return response()->json($customer);
+        // return response()->json($customer);
+        return new CustomerResource($customer);
     }
 
     /**
