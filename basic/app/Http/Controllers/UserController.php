@@ -45,7 +45,7 @@ class UserController extends Controller
         ]);
         $user->save();
         
-        return redirect()->route('user.index')->with('success', 'บันทึกสำเร็จ');
+        return redirect()->route('user.create')->with('success', 'บันทึกสำเร็จ');
     }
 
     /**
