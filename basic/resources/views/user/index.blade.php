@@ -13,7 +13,7 @@
             <ul>
                 @foreach($users as $user)
                 <li class="mb-3">{{ $user['fname'] }} {{ $user['lname'] }}
-                    <a class="text-primary ml-3" href="#">Edit</a>
+                    <a class="btn btn-primary ml-3" href="{{ action('UserController@edit', $user['id'])}}">Edit</a>
                     <form action="{{ action('UserController@destroy', $user['id']) }}" method="post"
                         class="delete_form">
                         {{ csrf_field() }}
