@@ -4,12 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Customer;
-use App\Http\Resources\CustomerCollection;
-use App\Http\Resources\CustomerResource;
 use Illuminate\Support\Facades\DB;
 
-class CustomerController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +15,6 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = DB::table('customers')->get();
-        return response()->json($customers);
     }
 
     /**
@@ -41,9 +36,7 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        $customer = DB::table('customers')->where('id', $id)->first();
-
-        return response()->json($customer);
+        //
     }
 
     /**

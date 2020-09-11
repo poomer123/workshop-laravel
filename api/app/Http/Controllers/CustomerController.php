@@ -1,13 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Customer;
-use App\Http\Resources\CustomerCollection;
-use App\Http\Resources\CustomerResource;
-use Illuminate\Support\Facades\DB;
 
 class CustomerController extends Controller
 {
@@ -18,8 +13,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = DB::table('customers')->get();
-        return response()->json($customers);
+        //
     }
 
     /**
@@ -41,9 +35,7 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        $customer = DB::table('customers')->where('id', $id)->first();
-
-        return response()->json($customer);
+        //
     }
 
     /**
