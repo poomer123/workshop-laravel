@@ -8,6 +8,7 @@ use App\Customer;
 use App\Http\Resources\CustomerCollection;
 use App\Http\Resources\CustomerResource;
 use Illuminate\Support\Facades\DB;
+use Exception;
 
 class CustomerController extends Controller
 {
@@ -18,7 +19,14 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = DB::table('customers')->get();
+        $queryString = request()->query();
+
+        $customers = [];
+        if (isset($queryString['gender'])) {
+            $customers = Customer::where('gender', $queryString['gender'])->get();
+        } else {
+            $customers = Customer::all();
+        }
         return response()->json($customers);
     }
 
@@ -30,7 +38,21 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $customerData = request()->all();
+
+            $newCustomer = new Customer();
+            $newCustomer->first_name = $customerData['firstName'];
+            $newCustomer->last_name = $customerData['lastName'];
+
+            $newCustomer->save();
+
+            return response()->json($newCustomer);
+
+        } catch (Exception $ex) {
+            // abort(500);
+            return response(['message' => $ex->getMessage()], 500);
+        }
     }
 
     /**
@@ -41,9 +63,20 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        $customer = DB::table('customers')->where('id', $id)->first();
-
-        return response()->json($customer);
+        // try {
+        //     $customer = Customer::findOrFail($id);
+            
+        //     return response()->json($customer);
+        // } catch (Exception $ex) {
+        //     return response(['message' => $ex->getMessage()], 404);
+        // }
+        
+        $customer = Customer::find($id);
+        if (isset($customer)) {
+            return response()->json($customer);
+        } else {
+            return response(['message' => 'error'], 404);
+        }
     }
 
     /**
@@ -55,7 +88,18 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $customerData = request()->all();
+            $customer = Customer::findOrFail($id);
+            
+            $customer->first_name = $customerData['firstName'];
+            $customer->last_name = $customerData['lastName'];
+            $customer->save();
+
+            return response()->json($customer);
+        } catch (Exception $ex) {
+            return response(['message' => $ex->getMessage()], 404);
+        }
     }
 
     /**
@@ -66,6 +110,16 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+
+            $customer = Customer::findOrFail($id);
+            $customer->delete();
+
+            // Customer::destroy($id);
+
+            return response()->json(['message' => 'delete success']);
+        } catch (Exception $ex) {
+            return response(['message' => $ex->getMessage()], 500);
+        }
     }
 }
