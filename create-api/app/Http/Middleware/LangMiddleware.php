@@ -17,7 +17,8 @@ class LangMiddleware
     {
         $queryString = request()->query();
 
-        // dd($queryString);
+        // dd(request()->url());
+        dd(request()->header());
         
         if(isset($queryString['lang'])) {
             app()->setlocale($queryString['lang']);
