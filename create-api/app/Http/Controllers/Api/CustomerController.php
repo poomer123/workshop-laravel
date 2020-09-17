@@ -2,16 +2,23 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Customer;
-use App\Http\Resources\CustomerCollection;
-use App\Http\Resources\CustomerResource;
-use Illuminate\Support\Facades\DB;
 use Exception;
+use App\Customer;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\CustomerResource;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\CustomerCollection;
 
 class CustomerController extends Controller
 {
+    // private $rules = [
+    //     'firstName' => 'required|min:3',
+    //     'lastName' => 'required|min:3',
+    //     'email' => 'required|email'
+    // ];
+
     /**
      * Display a listing of the resource.
      *
@@ -38,21 +45,52 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            $customerData = request()->all();
+        // $rules = [
+        //     'firstName' => 'required|min:3',
+        //     'lastName' => 'required|min:3',
+        //     'email' => 'required|email'
+        // ];
 
-            $newCustomer = new Customer();
-            $newCustomer->first_name = $customerData['firstName'];
-            $newCustomer->last_name = $customerData['lastName'];
+        // $messages = [
+        //     'required' => ':attribute Require !!',
+        //     'email' => ':attribute Worng Email'
+        // ];
 
-            $newCustomer->save();
+        // $attribute = [
+        //     'firstName' => 'First name',
+        //     'lastName' => 'Last name',
+        //     'email' => 'Email'
+        // ]; 
 
-            return response()->json($newCustomer);
+        $configRules = config('rules.customers');
 
-        } catch (Exception $ex) {
-            // abort(500);
-            return response(['message' => $ex->getMessage()], 500);
+        $customerData = request()->all();
+        $varlidate = Validator::make($customerData, $configRules);
+
+        if($varlidate->fails()) {
+            $error = $varlidate->errors();
+
+            return response($error, 422);
         }
+
+        
+
+        dd($r);
+        // try {
+        //     $customerData = request()->all();
+
+        //     $newCustomer = new Customer();
+        //     $newCustomer->first_name = $customerData['firstName'];
+        //     $newCustomer->last_name = $customerData['lastName'];
+
+        //     $newCustomer->save();
+
+        //     return response()->json($newCustomer);
+
+        // } catch (Exception $ex) {
+        //     // abort(500);
+        //     return response(['message' => $ex->getMessage()], 500);
+        // }
     }
 
     /**
