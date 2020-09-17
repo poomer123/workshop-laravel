@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['middleware' => ['locale']], function() {
+    Route::post('login', 'AuthController@login');
     Route::apiResource('customers', 'Api\CustomerController');
 });
 
