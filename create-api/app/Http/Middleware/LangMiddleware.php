@@ -22,7 +22,7 @@ class LangMiddleware
         if(isset($queryString['lang'])) {
             app()->setlocale($queryString['lang']);
         }else {
-            // app()->setlocale('en');
+            app()->setlocale('en');
         }
 
         return $next($request);
